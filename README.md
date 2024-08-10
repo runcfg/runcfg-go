@@ -1,6 +1,19 @@
 # RunCfg Go Client
 
-### Quick start guide
+### Usage in projects
+
+First download dependency using go get
+```shell
+$ go get -u github.com/runcfg/runcfg-go
+```
+
+Then import into your project
+
+```go
+import "github.com/runcfg/runcfg-go"
+```
+
+### Using your first config
 
 1. Create an account at https://runcfg.com
 2. Download your `.runcfg` file from your project page at https://runcfg.com
