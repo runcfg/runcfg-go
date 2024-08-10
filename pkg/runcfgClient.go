@@ -46,16 +46,16 @@ func (c *Client) LoadConfigAsType(version string, configType interface{}) error 
 	req.Header.Set("Version", version)
 	resp, err := client.Do(req)
 	if err != nil {
-		return errors.New("failure requesting config")
+		return errors.New("[.runcfg] Failure requesting config")
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return errors.New("failed to parse response in GetConfig")
+		return errors.New("[.runcfg] Failed to parse response in GetConfig")
 	}
 	// unescape received string
 	unquoted, err := strconv.Unquote(string(body))
 	if err != nil {
-		return errors.New("failed to unescape response config")
+		return errors.New("[.runcfg] Failed to unescape response config")
 	}
 
 	// unmarshal config into ExampleConfig type

@@ -42,13 +42,4 @@ var config ExampleConfig // create instance of config type
 
 err = client.LoadConfigAsType("1.0.0", &config)
 if err != nil {
-    t.Error(err)
-}
-```
-
-You can now access your configuration from the 
-config type which you passed into the `LoadConfigAsType` function for example:
-
-```go
-fmt.Println("My Config Version", config.Version)
-```
+    t.Err
