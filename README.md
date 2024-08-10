@@ -17,7 +17,8 @@ import "github.com/runcfg/runcfg-go"
 
 1. Create an account at https://runcfg.com
 2. Download your `.runcfg` file from your project page at https://runcfg.com by clicking (get .runcfg file)
-![runcfg.PNG](runcfg.PNG)
+
+![runcfg.PNG](https://raw.githubusercontent.com/runcfg/runcfg-net/main/runcfg.png)
 
 3. Place your `.runcfg` file at the root of your project
 4. Create an instance of the client in your code as follows:
@@ -51,6 +52,3 @@ if err != nil {
 You can now access your configuration from the 
 config type which you passed into the `LoadConfigAsType` function for example:
 
-```go
-fmt.Println("My Config Version", config.Version)
-```
