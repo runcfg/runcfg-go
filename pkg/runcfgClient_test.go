@@ -2,9 +2,10 @@ package runcfg_test
 
 import (
 	"fmt"
-	runcfg "github.com/runcfg/runcfg-go/pkg"
 	"sync"
 	"testing"
+
+	runcfg "github.com/runcfg/runcfg-go/pkg"
 )
 
 type ExampleConfig struct {
@@ -17,7 +18,27 @@ func TestCreate_AndGetConfig(t *testing.T) {
 	var config ExampleConfig
 
 	// create runcfg client
-	client, err := runcfg.Create("")
+	client, err := runcfg.Create("", false)
+	if err != nil {
+		t.Error(err)
+	}
+	// fetch remote config and deserialize into ExampleConfig type
+	err = client.LoadConfigAsType("1.0.0", &config)
+	if err != nil {
+		t.Error(err)
+	}
+
+	fmt.Println("[.runcfg] loaded remote config")
+	fmt.Printf("[.runcfg] Value `version: %s`\n", config.Version)
+	fmt.Printf("[.runcfg] Value `target: %s`\n", config.Target)
+	fmt.Printf("[.runcfg] Value `enabled: %s`\n", config.Enabled)
+}
+
+func TestCreate_AndGetConfig_WithWatch(t *testing.T) {
+	var config ExampleConfig
+
+	// create runcfg client
+	client, err := runcfg.Create("", true)
 	if err != nil {
 		t.Error(err)
 	}
@@ -36,7 +57,7 @@ func TestCreate_AndGetConfig(t *testing.T) {
 func TestCreate_AndGetConfig_UsingGoroutine(t *testing.T) {
 
 	// create runcfg client
-	client, err := runcfg.Create("")
+	client, err := runcfg.Create("", false)
 	if err != nil {
 		t.Error(err)
 	}
