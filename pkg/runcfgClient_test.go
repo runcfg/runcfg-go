@@ -17,7 +17,7 @@ func TestCreate_AndGetConfig(t *testing.T) {
 	var config ExampleConfig
 
 	// create runcfg client
-	client, err := runcfg.Create()
+	client, err := runcfg.Create("")
 	if err != nil {
 		t.Error(err)
 	}
@@ -36,7 +36,7 @@ func TestCreate_AndGetConfig(t *testing.T) {
 func TestCreate_AndGetConfig_UsingGoroutine(t *testing.T) {
 
 	// create runcfg client
-	client, err := runcfg.Create()
+	client, err := runcfg.Create("")
 	if err != nil {
 		t.Error(err)
 	}

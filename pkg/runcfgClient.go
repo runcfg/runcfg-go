@@ -19,8 +19,23 @@ type Client struct {
 	ClientToken string `json:"clientToken"`
 }
 
-func Create() (Client, error) {
-	file, err := os.ReadFile(".runcfg")
+func Create(name string) (Client, error) {
+	var file []byte
+	var err error
+
+	if name != "" {
+		pwd, _ := os.Getwd()
+		file, err = os.ReadFile(pwd + "/" + name + ".runcfg")
+		if err != nil {
+			return Client{ProjectId: "", ClientToken: ""},
+				errors.New("[.runcfg] Failed to load local .runcfg file at path (" + pwd + "/" + name + ".runcfg)")
+		}
+	} else {
+		file, err = os.ReadFile(".runcfg")
+		if err != nil {
+			return Client{ProjectId: "", ClientToken: ""}, errors.New("[.runcfg] Failed to load local .runcfg")
+		}
+	}
 	var clientConfig Client
 	err = json.Unmarshal(file, &clientConfig)
 	fmt.Println(err)
