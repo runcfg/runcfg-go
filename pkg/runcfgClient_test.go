@@ -18,7 +18,7 @@ func TestCreate_AndGetConfig(t *testing.T) {
 	var config ExampleConfig
 
 	// create runcfg client
-	client, err := runcfg.Create("", false)
+	client, err := runcfg.Create("")
 	if err != nil {
 		t.Error(err)
 	}
@@ -38,7 +38,7 @@ func TestCreate_AndGetConfig_WithWatch(t *testing.T) {
 	var config ExampleConfig
 
 	// create runcfg client
-	client, err := runcfg.Create("", true)
+	client, err := runcfg.Create("")
 	if err != nil {
 		t.Error(err)
 	}
@@ -57,7 +57,7 @@ func TestCreate_AndGetConfig_WithWatch(t *testing.T) {
 func TestCreate_AndGetConfig_UsingGoroutine(t *testing.T) {
 
 	// create runcfg client
-	client, err := runcfg.Create("", false)
+	client, err := runcfg.Create("")
 	if err != nil {
 		t.Error(err)
 	}
