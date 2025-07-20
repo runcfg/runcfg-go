@@ -72,10 +72,9 @@ func Create(name string) (*Client, error) {
 	return &client, nil
 }
 
-func (c *Client) Watch(seconds time.Duration) {
+func (c *Client) Watch(seconds time.Duration, callback func()) {
 	if seconds*time.Second < time.Second*5 {
 		fmt.Println("[.runcfg] minimum watch interval is 5")
-		return
 	}
 
 	fmt.Printf("[.runcfg] Watching for changes every %s\n", seconds*time.Second)
@@ -94,6 +93,7 @@ func (c *Client) Watch(seconds time.Duration) {
 					if err != nil {
 						log.Fatalf("%s", err.Error())
 					} else {
+						callback()
 						fmt.Println("[.runcfg] Config Updated " + time.Now().String())
 					}
 				}

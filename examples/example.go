@@ -1,6 +1,7 @@
 package examples
 
 // import (
+// 	"fmt"
 // 	"log"
 // 	"time"
 
@@ -26,5 +27,7 @@ package examples
 // 		log.Fatalf("LoadConfigAsType failure:\n%s", err)
 // 	}
 
-// 	client.Watch(watchInterval)
+// 	client.Watch(watchInterval, func() {
+// 		fmt.Println("config updated")
+// 	})
 // }
