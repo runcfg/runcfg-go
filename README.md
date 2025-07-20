@@ -24,7 +24,9 @@ import "github.com/runcfg/runcfg-go"
 4. Create an instance of the client in your code as follows:
    
 ```go
-client, err := runcfg.Create()
+// my-config is your project name which is prepended to your .runcfg file e.g. `my-config.runcfg`
+
+client, err := runcfg.Create("my-config") 
 if err != nil {
     t.Error(err)
 }
@@ -41,12 +43,17 @@ type ExampleConfig struct {
 
 6. load your remote config into your config type
 ```go
-var config ExampleConfig // create instance of config type
+var config ExampleConfig // create instance of your config type
 
-err = client.LoadConfigAsType("1.0.0", &config)
+err = client.LoadConfigAsType(&config)
 if err != nil {
-    t.Error(err)
+	log.Fatalf("LoadConfigAsType failure:\n%s", err)
 }
+
+// optional: watch for config changes and invoke callback
+client.Watch(watchInterval, func() {
+	fmt.Println("config updated")
+})	
 ```
 
 You can now access your configuration from the 

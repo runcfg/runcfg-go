@@ -84,12 +84,12 @@ func (c *Client) Watch(seconds time.Duration, callback func()) {
 		for {
 			select {
 			case <-c.ticker.C:
-				updated, err := c.Updated("1.0.0")
+				updated, err := c.Updated()
 				if err != nil {
 					log.Fatalf("%s", err.Error())
 				}
 				if updated {
-					err := c.LoadConfigAsType("1.0.0", nil)
+					err := c.LoadConfigAsType(nil)
 					if err != nil {
 						log.Fatalf("%s", err.Error())
 					} else {
@@ -107,7 +107,7 @@ func (c *Client) Watch(seconds time.Duration, callback func()) {
 	c.wg.Wait()
 }
 
-func (c *Client) LoadConfigAsType(version string, configType interface{}) error {
+func (c *Client) LoadConfigAsType(configType interface{}) error {
 	var confType interface{}
 
 	if c.configType == nil && configType == nil {
@@ -130,7 +130,7 @@ func (c *Client) LoadConfigAsType(version string, configType interface{}) error 
 	}
 
 	req.Header.Set("Authorization", c.ClientToken)
-	req.Header.Add("Version", version)
+	req.Header.Add("Version", "runcfg-go-1.2.2")
 
 	resp, err := c.ReqClient.Do(req)
 	if err != nil {
@@ -168,7 +168,7 @@ func (c *Client) GetLatestVersion() error {
 	return nil
 }
 
-func (c *Client) Updated(version string) (bool, error) {
+func (c *Client) Updated() (bool, error) {
 	latest, err := c.fetchLatest()
 	if err != nil {
 		return false, errors.New("[.runcfg] Failed to fetch latest: " + err.Error())
@@ -200,7 +200,7 @@ func (c *Client) fetchLatest() (*ConfigUpdate, error) {
 	}
 
 	req.Header.Add("Authorization", c.ClientToken)
-	req.Header.Add("Version", "rcgo-1.0.0")
+	req.Header.Add("Version", "runcfg-go-1.2.2")
 
 	resp, err := c.ReqClient.Do(req)
 	if err != nil {

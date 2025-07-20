@@ -22,7 +22,7 @@ package examples
 // 		log.Fatalf("%s", err)
 // 	}
 
-// 	err = client.LoadConfigAsType("1.0.0", &config)
+// 	err = client.LoadConfigAsType(&config)
 // 	if err != nil {
 // 		log.Fatalf("LoadConfigAsType failure:\n%s", err)
 // 	}

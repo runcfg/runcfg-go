@@ -23,7 +23,7 @@ func TestCreate_AndGetConfig(t *testing.T) {
 		t.Error(err)
 	}
 	// fetch remote config and deserialize into ExampleConfig type
-	err = client.LoadConfigAsType("1.0.0", &config)
+	err = client.LoadConfigAsType(&config)
 	if err != nil {
 		t.Error(err)
 	}
@@ -43,7 +43,7 @@ func TestCreate_AndGetConfig_WithWatch(t *testing.T) {
 		t.Error(err)
 	}
 	// fetch remote config and deserialize into ExampleConfig type
-	err = client.LoadConfigAsType("1.0.0", &config)
+	err = client.LoadConfigAsType(&config)
 	if err != nil {
 		t.Error(err)
 	}
@@ -67,12 +67,12 @@ func TestCreate_AndGetConfig_UsingGoroutine(t *testing.T) {
 	errChan := make(chan error, 1)
 	var wg sync.WaitGroup
 
+	wg.Add(1)
 	go func() {
-		wg.Add(1)
 		var config ExampleConfig
 
 		// fetch remote config on interval
-		err := client.LoadConfigAsType("1.0.0", &config)
+		err := client.LoadConfigAsType(&config)
 		if err != nil {
 			errChan <- err
 		}
